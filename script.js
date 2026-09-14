@@ -9,48 +9,88 @@ const trendData = [
 
 const surfaceData = [
   {
-    id: "all",
-    name: "All Copilot usage",
-    icon: "ALL",
-    units: 527554,
+    id: "ide",
+    name: "IDE assistance",
+    icon: "IDE",
     color: "#58a6ff",
-    description: "Current Copilot AI-unit consumption reported for the Futurice enterprise.",
-    source: "Enterprise licensing summary",
+    status: "Capability",
+    statusClass: "evidence-capability",
+    metric: "Per-surface usage unavailable",
+    description: "Inline suggestions, Copilot Chat, edit and agent modes used inside supported IDEs.",
+    evidence: "Product capability; no IDE-specific telemetry in this snapshot",
+  },
+  {
+    id: "cli",
+    name: "Copilot CLI",
+    icon: ">_",
+    color: "#d2a8ff",
+    status: "Capability",
+    statusClass: "evidence-capability",
+    metric: "Usage unavailable",
+    description: "Terminal-based Copilot for questions, planning, code changes, and GitHub workflows.",
+    evidence: "Product capability; no CLI-specific telemetry in this snapshot",
+  },
+  {
+    id: "code-review",
+    name: "Copilot code review",
+    icon: "CR",
+    color: "#3fb950",
+    status: "Capability",
+    statusClass: "evidence-capability",
+    metric: "Usage unavailable",
+    description: "AI-assisted review on GitHub and supported development environments.",
+    evidence: "Product capability; no code-review telemetry in this snapshot",
+  },
+  {
+    id: "cloud-agent",
+    name: "Copilot cloud agent",
+    icon: "CA",
+    color: "#f0883e",
+    status: "Observed",
+    statusClass: "evidence-observed",
+    metric: "750 Coding Agent AI units",
+    description: "Background coding agent work performed in GitHub-hosted development environments.",
+    evidence: "Feature-specific metric reported by the enterprise licensing summary",
+  },
+  {
+    id: "agentic-workflows",
+    name: "GitHub Agentic Workflows",
+    icon: "AW",
+    color: "#a371f7",
+    status: "Capability",
+    statusClass: "evidence-capability",
+    metric: "Usage unavailable",
+    description: "AI-powered repository automation defined as workflows and run through GitHub Actions.",
+    evidence: "Product capability; no Agentic Workflows telemetry in this snapshot",
+  },
+  {
+    id: "context",
+    name: "Spaces & customization",
+    icon: "CTX",
+    color: "#db61a2",
+    status: "Capability",
+    statusClass: "evidence-capability",
+    metric: "Usage unavailable",
+    description: "Spaces, repository context, custom instructions, and agent instructions that tailor Copilot.",
+    evidence: "Product capability; no Spaces or customization telemetry in this snapshot",
   },
 ];
 
-const totalSurfaceUnits = surfaceData.reduce((total, surface) => total + surface.units, 0);
-let surfaceMode = "units";
-let selectedSurfaceId = "all";
-
-function formatShare(units) {
-  const share = (units / totalSurfaceUnits) * 100;
-  if (share > 0 && share < 0.1) return "<0.1%";
-  return `${share.toFixed(1)}%`;
-}
-
-function formatSurfaceValue(surface) {
-  return surfaceMode === "units"
-    ? surface.units.toLocaleString("en-US")
-    : formatShare(surface.units);
-}
+let selectedSurfaceId = "ide";
 
 function updateSurfaceDetail() {
   const surface = surfaceData.find((item) => item.id === selectedSurfaceId);
   if (!surface) return;
 
-  document.querySelector("#surface-focus-label").textContent = surface.name;
-  document.querySelector("#surface-focus-value").textContent = formatSurfaceValue(surface);
-  document.querySelector("#surface-focus-unit").textContent =
-    surfaceMode === "units" ? "AI units" : "share of total";
   document.querySelector("#surface-detail-icon").textContent = surface.icon;
   document.querySelector("#surface-detail-icon").style.background = surface.color;
-  document.querySelector("#surface-detail-share").textContent = formatShare(surface.units);
+  const status = document.querySelector("#surface-detail-status");
+  status.textContent = surface.status;
+  status.className = `surface-detail-share ${surface.statusClass}`;
   document.querySelector("#surface-detail-title").textContent = surface.name;
-  document.querySelector("#surface-detail-value").textContent =
-    `${surface.units.toLocaleString("en-US")} AI units`;
+  document.querySelector("#surface-detail-value").textContent = surface.metric;
   document.querySelector("#surface-detail-copy").textContent = surface.description;
-  document.querySelector("#surface-detail-source").textContent = surface.source;
+  document.querySelector("#surface-detail-source").textContent = surface.evidence;
 }
 
 function renderSurfaceRows() {
@@ -59,8 +99,6 @@ function renderSurfaceRows() {
 
   list.innerHTML = surfaceData
     .map((surface) => {
-      const share = (surface.units / totalSurfaceUnits) * 100;
-      const visibleWidth = surface.units > 0 ? Math.max(share, 0.8) : 0;
       const active = surface.id === selectedSurfaceId;
       return `
         <button
@@ -71,10 +109,8 @@ function renderSurfaceRows() {
         >
           <span class="surface-row-icon" style="background:${surface.color}">${surface.icon}</span>
           <span class="surface-row-name">${surface.name}</span>
-          <span class="surface-row-track" aria-hidden="true">
-            <i style="width:${visibleWidth}%;background:${surface.color}"></i>
-          </span>
-          <span class="surface-row-value">${formatSurfaceValue(surface)}</span>
+          <span class="surface-row-evidence">${surface.metric}</span>
+          <span class="surface-row-value ${surface.statusClass}">${surface.status}</span>
         </button>
       `;
     })
@@ -93,34 +129,11 @@ function renderSurfaceDonut() {
   const donut = document.querySelector("#surface-donut");
   if (!donut) return;
 
-  let offset = 0;
-  const stops = surfaceData.map((surface) => {
-    const start = offset;
-    offset += (surface.units / totalSurfaceUnits) * 100;
-    return `${surface.color} ${start}% ${offset}%`;
-  });
-  donut.style.background = `conic-gradient(${stops.join(",")})`;
-  donut.setAttribute(
-    "aria-label",
-    surfaceData.map((surface) => `${surface.name} ${formatShare(surface.units)}`).join(", "),
-  );
+  donut.style.background = "conic-gradient(#58a6ff 0% 100%)";
 }
 
 function initializeSurfaceExplorer() {
   if (!document.querySelector("#surface-list")) return;
-
-  document.querySelectorAll("[data-surface-mode]").forEach((button) => {
-    button.addEventListener("click", () => {
-      surfaceMode = button.dataset.surfaceMode;
-      document.querySelectorAll("[data-surface-mode]").forEach((toggle) => {
-        const active = toggle === button;
-        toggle.classList.toggle("active", active);
-        toggle.setAttribute("aria-pressed", String(active));
-      });
-      renderSurfaceRows();
-      updateSurfaceDetail();
-    });
-  });
 
   renderSurfaceRows();
   renderSurfaceDonut();

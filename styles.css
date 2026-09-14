@@ -1049,34 +1049,33 @@ h3 {
   font-size: 10px;
 }
 
-.surface-toggle {
+.surface-evidence-legend {
   display: flex;
-  gap: 3px;
-  padding: 3px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--canvas);
+  gap: 6px;
 }
 
-.surface-toggle button {
-  padding: 6px 10px;
-  border: 0;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--muted);
+.surface-evidence-legend span,
+.surface-detail-share,
+.surface-row-value {
+  padding: 4px 7px;
+  border-radius: 99px;
   font-size: 9px;
   font-weight: 700;
-  cursor: pointer;
 }
 
-.surface-toggle button:hover {
-  color: var(--blue);
+.evidence-observed {
+  background: rgba(63, 185, 80, 0.12);
+  color: #7ee787 !important;
 }
 
-.surface-toggle button.active {
-  background: var(--surface-raised);
-  color: var(--blue);
-  box-shadow: 0 2px 8px rgba(1, 4, 9, 0.22);
+.evidence-unavailable {
+  background: rgba(139, 148, 158, 0.12);
+  color: #b1bac4 !important;
+}
+
+.evidence-capability {
+  background: rgba(88, 166, 255, 0.12);
+  color: #79c0ff !important;
 }
 
 .surface-explorer {
@@ -1187,7 +1186,7 @@ h3 {
 
 .surface-row {
   display: grid;
-  grid-template-columns: 29px minmax(105px, 0.8fr) minmax(80px, 1fr) 65px;
+  grid-template-columns: 29px minmax(105px, 0.8fr) minmax(105px, 1fr) 72px;
   gap: 10px;
   align-items: center;
   width: 100%;
@@ -1225,23 +1224,13 @@ h3 {
   white-space: nowrap;
 }
 
-.surface-row-track {
-  height: 6px;
-  overflow: hidden;
-  border-radius: 99px;
-  background: var(--line-muted);
-}
-
-.surface-row-track i {
-  display: block;
-  height: 100%;
-  min-width: 2px;
-  border-radius: inherit;
+.surface-row-evidence {
+  color: var(--muted);
+  font-size: 8px;
+  line-height: 1.35;
 }
 
 .surface-row-value {
-  color: var(--muted);
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 8px;
   font-weight: 700;
   text-align: right;
@@ -1274,7 +1263,6 @@ h3 {
 }
 
 .surface-detail-share {
-  color: var(--green);
   font-size: 11px;
   font-weight: 800;
 }
@@ -1328,11 +1316,21 @@ h3 {
 }
 
 .surface-note,
+.cohort-surface-note,
 .source-caveat {
   margin: 13px 0 0;
   color: var(--muted);
   font-size: 9px;
   line-height: 1.55;
+}
+
+.cohort-surface-note {
+  margin-bottom: 17px;
+}
+
+.cohort-surface-note strong,
+.surface-note strong {
+  color: #c9d1d9;
 }
 
 .utilization-layout {
@@ -2219,14 +2217,15 @@ footer a {
   .surface-toolbar {
     align-items: flex-start;
     flex-direction: column;
+    gap: 9px;
     gap: 10px;
   }
 
   .surface-row {
-    grid-template-columns: 28px minmax(95px, 1fr) 60px;
+    grid-template-columns: 28px minmax(95px, 1fr) 72px;
   }
 
-  .surface-row-track {
+  .surface-row-evidence {
     display: none;
   }
 
