@@ -66,7 +66,7 @@
       <nav class="section-nav" aria-label="Impact summary sections">
         <a href="#overview">Overview</a>
         <a href="#copilot-impact">Impact</a>
-        <a href="#usage-surfaces">Usage snapshot</a>
+        <a href="#usage-surfaces">Product surfaces</a>
         <a href="#product-footprint">Footprint</a>
       </nav>
 
@@ -97,7 +97,7 @@
               </div>
               <p class="metric-value compact-value">527,554</p>
               <p class="metric-caption">current consumption snapshot</p>
-              <div class="metric-detail positive-text">750 Coding Agent AI units</div>
+              <div class="metric-detail positive-text">750 cloud/coding agent AI units observed</div>
             </article>
             <article class="metric-card risk-card">
               <div class="metric-topline">
@@ -253,6 +253,12 @@
               </div>
             </article>
           </div>
+          <p class="cohort-surface-note">
+            <strong>Cohorts are maturity classifications, not product surfaces.</strong>
+            &ldquo;IDE only,&rdquo; &ldquo;Agentic,&rdquo; and &ldquo;Multi-agent&rdquo; describe
+            observed engagement patterns; they do not provide per-feature usage for IDE chat, CLI,
+            code review, cloud agent, or workflows.
+          </p>
 
           <div class="cohort-analysis">
             <div class="cohort-analysis-heading">
@@ -362,19 +368,21 @@
         <section class="section" id="usage-surfaces" aria-labelledby="surfaces-title">
           <div class="section-heading">
             <div>
-              <p class="eyebrow dark">CURRENT CONSUMPTION</p>
-              <h2 id="surfaces-title">Copilot usage snapshot</h2>
+              <p class="eyebrow dark">SURFACES AND EVIDENCE</p>
+              <h2 id="surfaces-title">GitHub Copilot product surfaces</h2>
             </div>
-            <p class="freshness">AI units / Futurice / as of 13 Sep 2026</p>
+            <p class="freshness">Product capability and telemetry status / 13 Sep 2026</p>
           </div>
 
           <div class="surface-toolbar">
-            <p>Explore the current enterprise-level Copilot consumption snapshot.</p>
-            <div class="surface-toggle" role="group" aria-label="Consumption snapshot display">
-              <button class="active" type="button" data-surface-mode="units" aria-pressed="true">
-                AI units
-              </button>
-              <button type="button" data-surface-mode="share" aria-pressed="false">Share</button>
+            <p>
+              Product surfaces are listed separately from adoption cohorts and aggregate
+              consumption.
+            </p>
+            <div class="surface-evidence-legend" aria-label="Evidence status legend">
+              <span class="evidence-observed">Observed</span>
+              <span class="evidence-unavailable">Unavailable</span>
+              <span class="evidence-capability">Capability</span>
             </div>
           </div>
 
@@ -384,25 +392,25 @@
                 class="surface-donut"
                 id="surface-donut"
                 role="img"
-                aria-label="Copilot AI unit distribution by surface"
+                aria-label="527,554 aggregate Copilot AI units; per-surface allocation unavailable"
               >
                 <div class="surface-donut-center">
-                  <span id="surface-focus-label">All Copilot usage</span>
-                  <strong id="surface-focus-value">527,554</strong>
-                  <small id="surface-focus-unit">AI units</small>
+                  <span>Aggregate only</span>
+                  <strong>527,554</strong>
+                  <small>Copilot AI units</small>
                 </div>
               </div>
               <div class="surface-total">
-                <span>Current snapshot</span>
-                <strong>527,554 AI units</strong>
-                <small>Consumption units, not invoice dollars</small>
+                <span>Surface allocation</span>
+                <strong>Not available</strong>
+                <small>Do not infer channel share from cohorts</small>
               </div>
             </div>
 
             <div class="surface-ranking">
               <div class="surface-ranking-header">
-                <span>METRIC</span>
-                <span>SHARE OF TOTAL</span>
+                <span>PRODUCT SURFACE</span>
+                <span>EVIDENCE</span>
               </div>
               <div id="surface-list"></div>
               <noscript>Enable JavaScript to use the interactive surface explorer.</noscript>
@@ -410,25 +418,33 @@
 
             <aside class="surface-detail" id="surface-detail" aria-live="polite">
               <div class="surface-detail-head">
-                <span class="surface-detail-icon" id="surface-detail-icon">ALL</span>
-                <span class="surface-detail-share" id="surface-detail-share">100.0%</span>
+                <span class="surface-detail-icon" id="surface-detail-icon">IDE</span>
+                <span class="surface-detail-share evidence-capability" id="surface-detail-status"
+                  >Capability</span
+                >
               </div>
-              <p class="surface-detail-kicker">SELECTED METRIC</p>
-              <h3 id="surface-detail-title">All Copilot usage</h3>
-              <p class="surface-detail-value" id="surface-detail-value">527,554 AI units</p>
+              <p class="surface-detail-kicker">SELECTED PRODUCT SURFACE</p>
+              <h3 id="surface-detail-title">IDE assistance</h3>
+              <p class="surface-detail-value" id="surface-detail-value">Per-surface usage unavailable</p>
               <p class="surface-detail-copy" id="surface-detail-copy">
-                Current Copilot AI-unit consumption reported for the Futurice enterprise.
+                Inline suggestions, Copilot Chat, edit and agent modes used inside supported IDEs.
               </p>
               <div class="surface-detail-source">
-                <span>Source scope</span>
-                <strong id="surface-detail-source">Enterprise licensing summary</strong>
+                <span>Evidence basis</span>
+                <strong id="surface-detail-source"
+                  >Product capability; no IDE-specific telemetry in this snapshot</strong
+                >
               </div>
             </aside>
           </div>
 
           <div class="surface-note">
-            The current licensing source does not provide a dated 30-day range or channel-level
-            allocation. AI units are shown as a current snapshot, not invoice dollars.
+            <strong>Observed:</strong> 527,554 aggregate Copilot AI units and 750 Coding Agent AI
+            units. <strong>Unavailable:</strong> usage by IDE, CLI, code review, Agentic Workflows,
+            Spaces, or customization. <strong>Inferred:</strong> none; no per-surface values are
+            estimated from cohorts or aggregate units. A capability label does not confirm that a
+            feature is enabled or used. Third-party agents are not shown because the current source
+            does not identify any.
           </div>
         </section>
 
@@ -482,13 +498,14 @@
 
           <div class="footprint-strip">
             <div><span>Current AI units snapshot</span><strong>527,554</strong></div>
-            <div><span>Coding Agent AI units</span><strong>750</strong></div>
+            <div><span>Cloud/coding agent AI units</span><strong>750 observed</strong></div>
             <div><span>AI budget</span><strong>$200 alert-only</strong></div>
             <div><span>Budget view used</span><strong>$0 reported</strong></div>
           </div>
           <p class="source-caveat">
             The budget view reports $0 used while AI-unit consumption is present. These are
-            separate measures and do not imply zero AI usage.
+            separate measures and do not imply zero AI usage. The Coding Agent value is the only
+            feature-specific Copilot consumption measure in this snapshot.
           </p>
         </section>
 
