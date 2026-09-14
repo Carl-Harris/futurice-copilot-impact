@@ -9,73 +9,19 @@ const trendData = [
 
 const surfaceData = [
   {
-    id: "ide",
-    name: "IDE & editors",
-    icon: "IDE",
-    units: 530829,
+    id: "all",
+    name: "All Copilot usage",
+    icon: "ALL",
+    units: 527554,
     color: "#58a6ff",
-    description: "Copilot usage recorded through supported editor and IDE integrations.",
-    source: "VS Code / JetBrains / Zed / Visual Studio",
-  },
-  {
-    id: "code-review",
-    name: "Code Review",
-    icon: "CR",
-    units: 14485,
-    color: "#3fb950",
-    description: "AI units attributed to Copilot pull-request review workflows.",
-    source: "GitHub Copilot code review",
-  },
-  {
-    id: "external-agents",
-    name: "External agents",
-    icon: "AG",
-    units: 9095,
-    color: "#a371f7",
-    description: "Agentic usage recorded through OpenCode and Claude Code integrations.",
-    source: "OpenCode / Claude Code",
-  },
-  {
-    id: "app",
-    name: "Copilot app",
-    icon: "APP",
-    units: 6444,
-    color: "#f0883e",
-    description: "Usage attributed to the GitHub Copilot app.",
-    source: "GitHub Copilot app",
-  },
-  {
-    id: "cli",
-    name: "Copilot CLI",
-    icon: ">_",
-    units: 4071,
-    color: "#d2a8ff",
-    description: "AI units attributed to Copilot command-line workflows.",
-    source: "GitHub Copilot CLI",
-  },
-  {
-    id: "cloud-agent",
-    name: "GitHub Copilot Cloud Agent",
-    icon: "CA",
-    units: 727,
-    color: "#d29922",
-    description: "AI units attributed to GitHub Copilot Cloud Agent workflows.",
-    source: "GitHub Copilot Cloud Agent",
-  },
-  {
-    id: "mobile",
-    name: "Mobile",
-    icon: "M",
-    units: 12,
-    color: "#db61a2",
-    description: "A small amount of usage was attributed to the Copilot iOS client.",
-    source: "GitHub Copilot for iOS",
+    description: "Current Copilot AI-unit consumption reported for the Futurice enterprise.",
+    source: "Enterprise licensing summary",
   },
 ];
 
 const totalSurfaceUnits = surfaceData.reduce((total, surface) => total + surface.units, 0);
 let surfaceMode = "units";
-let selectedSurfaceId = "ide";
+let selectedSurfaceId = "all";
 
 function formatShare(units) {
   const share = (units / totalSurfaceUnits) * 100;
